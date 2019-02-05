@@ -1,0 +1,16 @@
+PODS:
+  - PlotPlugin (2.3.0)
+
+DEPENDENCIES:
+  - PlotPlugin
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - PlotPlugin
+
+SPEC CHECKSUMS:
+  PlotPlugin: c0e338dd7ce81e8793f2aebdd4b7d37ccc999c2a
+
+PODFILE CHECKSUM: 9e3c6874b7170f8ec10bf221d18fc0180323be9b
+
+COCOAPODS: 1.6.0.beta.2

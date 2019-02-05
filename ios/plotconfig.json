@@ -1,0 +1,8 @@
+{
+  "publicToken": "YOUR_TOKEN",
+  "enableOnFirstRun": true,
+  "maxRegionsMonitored": 20,
+  "automaticallyAskLocationPermission": true,
+  "automaticallyAskNotificationPermission": true,
+  "provisionalNotificationPermission":false
+}

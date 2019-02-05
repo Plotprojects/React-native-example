@@ -1,0 +1,9 @@
+{
+  "publicToken": "YOUR_TOKEN",
+  "enableOnFirstRun": true,
+  "notificationAccentColor": "#01579B",
+  "askPermissionAgainAfterDays": -1,
+  "debug": true,
+  "automaticallyAskLocationPermission": true,
+  "emulatorTesting": true
+}
