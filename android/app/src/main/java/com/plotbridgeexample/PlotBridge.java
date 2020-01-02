@@ -39,4 +39,19 @@ public class PlotBridge extends ReactContextBaseJavaModule {
     public void setStringSegmentationProperty(String key, String value){
         Plot.setStringSegmentationProperty(key,value);
     }
+
+    @ReactMethod
+    public void enable(){
+        Plot.enable();
+    }
+
+    @ReactMethod
+    public void disable(){
+        Plot.disable();
+    }
+
+    @ReactMethod
+    public void isEnabled(){
+        Plot.isEnabled();
+    }
 }

@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, NativeModules, Linking, Alert} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, Switch, NativeModules, Linking, Alert} from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -20,18 +20,34 @@ type Props = {};
 var Plot = NativeModules.PlotBridge;
 export default class App extends Component<Props> {
 
+  state = {
+    plotEnabled:true
+  }
+
+  togglePlot = (newValue) => {
+      newValue ? Plot.enable() : Plot.disable();
+      this.setState({plotEnabled: newValue})
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Contextual Pages React Native Example</Text>
+        <Text style={styles.welcome}>Plot React Native Bridge Example</Text>
         <Text style={styles.instructions}>{instructions}</Text>
-        <Button
+        <View style={styles.rowHolder}>
+          <Text>Plot is {this.state.plotEnabled ? 'ENABLED':'DISABLED'}</Text>
+          <Switch onValueChange = {this.togglePlot} value = {this.state.plotEnabled}/>
+        </View>
+        <View style={styles.buttonHolder}>
+          <Button style={styles.buttonWithMargin}
         onPress={requestContextualPage}
       title="Request Contextual Page"/>
-      <Button
+        </View>
+        <View style={styles.buttonHolder}>
+          <Button style={styles.buttonWithMargin}
         onPress={setSegmentation}
       title="Set example segmentation string"/>
+        </View>
       </View>
     );
   }
@@ -76,6 +92,12 @@ const styles = StyleSheet.create({
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
   },
+  rowHolder:{
+    flexDirection: 'row',
+    marginTop:20
+  },
+  buttonHolder: {
+    marginTop:20
+  }
 });

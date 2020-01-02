@@ -19,13 +19,22 @@ RCT_REMAP_METHOD(requestContextualPage, resolver: (RCTPromiseResolveBlock)resolv
   }];
 }
 
+// Add the rest of segmentation property types if needed
 RCT_EXPORT_METHOD(setStringSegmentationProperty:(NSString *)key location:(NSString *)value)
 {
   [Plot setStringSegmentationProperty:value forKey:key];
 }
 
-// Add the rest of segmentation property types if needed
+RCT_EXPORT_METHOD(enable){
+  [Plot enable];
+}
 
+RCT_EXPORT_METHOD(disable){
+  [Plot disable];
+}
 
+RCT_EXPORT_METHOD(isEnabled){
+  [Plot isEnabled];
+}
 
 @end
