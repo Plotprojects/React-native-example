@@ -11,7 +11,7 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_REMAP_METHOD(requestContextualPage, resolver: (RCTPromiseResolveBlock)resolve
+RCT_REMAP_METHOD(requestContextualPage, contextualPageWithresolver: (RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
   [Plot requestContextualPage:^(NSString *result) {
@@ -33,8 +33,10 @@ RCT_EXPORT_METHOD(disable){
   [Plot disable];
 }
 
-RCT_EXPORT_METHOD(isEnabled){
-  [Plot isEnabled];
+RCT_REMAP_METHOD(isEnabled, isEnabledWithResolver: (RCTPromiseResolveBlock)resolve
+     rejecter:(RCTPromiseRejectBlock)reject)
+{
+  resolve([NSNumber numberWithBool:[Plot isEnabled]]);
 }
 
 @end

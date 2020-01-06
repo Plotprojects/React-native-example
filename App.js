@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, Switch, NativeModules, Linking, Alert} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, Switch, ActivityIndicator, NativeModules, Linking, Alert} from 'react-native';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -16,28 +16,59 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-type Props = {};
-var Plot = NativeModules.PlotBridge;
-export default class App extends Component<Props> {
+class TogglePlot extends Component {
+  componentDidMount(){
+    // Toggle the state every second
+    setInterval(() => (
+      this.isPlotLoading(this.state.plotEnabled)
+    ), 1000);
+  }
 
   state = {
-    plotEnabled:true
+    plotEnabled:true,
+    plotLoading:true
   }
 
   togglePlot = (newValue) => {
-      newValue ? Plot.enable() : Plot.disable();
-      this.setState({plotEnabled: newValue})
+    newValue ? Plot.enable() : Plot.disable();
+    this.setState(
+      {
+        plotEnabled: newValue,
+        plotLoading: true
+      }
+    )
   }
+
+  isPlotLoading = (uiPlotState) => {
+    (async () => {
+      const isEnabled = await Plot.isEnabled();
+      this.setState({plotLoading: isEnabled != uiPlotState});
+    })()
+  }
+  
+  render(){
+    return (
+        <View>
+        { this.state.plotLoading ? <ActivityIndicator size="large"></ActivityIndicator> :
+        <View style={styles.rowHolder}>
+          <Text>Plot is {this.state.plotEnabled ? 'ENABLED':'DISABLED'}</Text>
+          <Switch onValueChange = {this.togglePlot} value = {this.state.plotEnabled}/>
+    </View> }
+        </View>
+        );
+  }
+}
+
+type Props = {};
+var Plot = NativeModules.PlotBridge;
+export default class App extends Component<Props> {
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Plot React Native Bridge Example</Text>
         <Text style={styles.instructions}>{instructions}</Text>
-        <View style={styles.rowHolder}>
-          <Text>Plot is {this.state.plotEnabled ? 'ENABLED':'DISABLED'}</Text>
-          <Switch onValueChange = {this.togglePlot} value = {this.state.plotEnabled}/>
-        </View>
+        <TogglePlot />
         <View style={styles.buttonHolder}>
           <Button style={styles.buttonWithMargin}
         onPress={requestContextualPage}
