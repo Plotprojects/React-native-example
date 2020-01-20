@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.Promise;
 import com.plotprojects.retail.android.Plot;
 import com.plotprojects.retail.android.RequestContextualPageCallback;
 
@@ -38,5 +39,20 @@ public class PlotBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setStringSegmentationProperty(String key, String value){
         Plot.setStringSegmentationProperty(key,value);
+    }
+
+    @ReactMethod
+    public void enable(){
+        Plot.enable();
+    }
+
+    @ReactMethod
+    public void disable(){
+        Plot.disable();
+    }
+
+    @ReactMethod
+    public void isEnabled(final Promise promise){
+        promise.resolve(Plot.isEnabled());
     }
 }
